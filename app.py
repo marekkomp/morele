@@ -51,13 +51,13 @@ def main():
         column_mapping = {
             "vendorPartNumber": "ID oferty",
             "salePriceBrutto": "Cena PL",
-            "vendorProductName": "Tytuł oferty",
+            "vendorProductName": "Marka",
             "availability": "Liczba sztuk",
             "quantity": "Liczba sztuk",
             "vendorBrandName": "Producent",
             "brandCode": "Kod producenta",
             "images": "Zdjęcia",
-            "vendorDescription": "Opis oferty",
+            "vendorDescription": "Przetworzony opis",
             "vendorCharacteristic": "Model procesora"
         }
 
