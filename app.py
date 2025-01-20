@@ -43,7 +43,7 @@ def main():
 
     if uploaded_file is not None:
         # Read the uploaded CSV file
-        input_df = pd.read_csv(uploaded_file)
+        input_df = pd.read_csv(uploaded_file, sep=";", encoding="latin1")
         st.write("### Uploaded File Data")
         st.dataframe(input_df)
 
@@ -77,7 +77,7 @@ def main():
             # Save the transformed data as a new CSV file
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             output_filename = f"morele_transformed_{timestamp}.csv"
-            transformed_df.to_csv(output_filename, index=False)
+            transformed_df.to_csv(output_filename, index=False, encoding="utf-8")
 
             st.success(f"File transformed and saved as {output_filename}")
 
