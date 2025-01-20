@@ -55,9 +55,10 @@ def main():
         ]
 
         for col in morele_columns:
-            user_input = st.text_input(f"Map column for '{col}' (leave blank to skip):")
-            if user_input:
-                column_mapping[col] = user_input
+            options = ["None"] + list(input_df.columns)
+            selected_option = st.selectbox(f"Select column for '{col}' (or 'None' to skip):", options)
+            if selected_option != "None":
+                column_mapping[col] = selected_option
 
         # Transform data to match Morele schema
         if st.button("Transform Data"):
