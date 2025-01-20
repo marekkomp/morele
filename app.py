@@ -54,8 +54,8 @@ def main():
             "vendorProductName": "Marka",
             "availability": "Liczba sztuk",
             "quantity": "Liczba sztuk",
-            "vendorBrandName": "Producent",
-            "brandCode": "Kod producenta",
+            "vendorBrandName": "Marka",
+            "brandCode": "Marka",
             "images": "Zdjęcia",
             "vendorDescription": "Przetworzony opis",
             "vendorCharacteristic": "Model procesora"
