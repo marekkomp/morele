@@ -55,6 +55,15 @@ def main():
 
         st.success(f"File transformed and saved as {output_filename}")
 
+        # Add a download button
+        with open(output_filename, "rb") as file:
+            btn = st.download_button(
+                label="Download Transformed File",
+                data=file,
+                file_name=output_filename,
+                mime="text/csv"
+            )
+
         # GitHub integration
         github_repo = "marekkomp/morele"
         github_command = f"git add {output_filename} && git commit -m \"Add transformed CSV {output_filename}\" && git push"
