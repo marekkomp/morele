@@ -42,20 +42,9 @@ def main():
     uploaded_file = st.file_uploader("Upload your CSV file", type="csv")
 
     if uploaded_file is not None:
-        try:
-            # Try reading the file with default settings
-            input_df = pd.read_csv(uploaded_file)
-            separator = ","
-        except pd.errors.ParserError:
-            try:
-                # If default fails, try with semicolon separator
-                input_df = pd.read_csv(uploaded_file, sep=";", encoding="latin1")
-                separator = ";"
-            except Exception as e:
-                st.error(f"Error reading the file: {e}")
-                return
-
-        st.write(f"### Uploaded File Data (detected separator: '{separator}')")
+        # Read the uploaded CSV file
+        input_df = pd.read_csv(uploaded_file)
+        st.write("### Uploaded File Data")
         st.dataframe(input_df)
 
         # Predefined column mapping and manual values
@@ -88,7 +77,7 @@ def main():
             # Save the transformed data as a new CSV file
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             output_filename = f"morele_transformed_{timestamp}.csv"
-            transformed_df.to_csv(output_filename, index=False, encoding="utf-8")
+            transformed_df.to_csv(output_filename, index=False)
 
             st.success(f"File transformed and saved as {output_filename}")
 
