@@ -47,28 +47,25 @@ def main():
         st.write("### Uploaded File Data")
         st.dataframe(input_df)
 
-        # User input for column mapping
-        st.write("### Column Mapping")
-        column_mapping = {}
-        manual_values = {}
-        morele_columns = [
-            "vendorPartNumber", "salePriceBrutto", "currency", "vendorProductName",
-            "barcodes", "availability", "quantity", "vendorBrandName",
-            "brandCode", "vat", "images", "vendorDescription",
-            "warranty", "vendorCharacteristic", "vendorCategoryName",
-            "deliveryDays", "deliveryPrice", "productPromotionActive",
-            "productPromotionCampaignName", "productPromotionPrice"
-        ]
+        # Predefined column mapping and manual values
+        column_mapping = {
+            "vendorPartNumber": "ID oferty",
+            "salePriceBrutto": "Cena PL",
+            "vendorProductName": "Tytuł oferty",
+            "availability": "Liczba sztuk",
+            "quantity": "Liczba sztuk",
+            "vendorBrandName": "Producent",
+            "brandCode": "Kod producenta",
+            "images": "Zdjęcia",
+            "vendorDescription": "Opis oferty",
+            "vendorCharacteristic": "Model procesora"
+        }
 
-        for col in morele_columns:
-            options = ["None"] + list(input_df.columns) + ["Manual Value"]
-            selected_option = st.selectbox(f"Select column for '{col}' (or 'None' to skip):", options)
-            if selected_option == "Manual Value":
-                manual_value = st.text_input(f"Enter manual value for '{col}':")
-                if manual_value:
-                    manual_values[col] = manual_value
-            elif selected_option != "None":
-                column_mapping[col] = selected_option
+        manual_values = {
+            "currency": "PLN",
+            "vat": "23",
+            "warranty": "24"
+        }
 
         # Transform data to match Morele schema
         if st.button("Transform Data"):
