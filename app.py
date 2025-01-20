@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from datetime import datetime
 
-def transform_to_morele_schema(input_df, column_mapping):
+def transform_to_morele_schema(input_df, column_mapping, manual_values):
     # Define the Morele schema
     morele_columns = [
         "vendorPartNumber", "salePriceBrutto", "currency", "vendorProductName",
@@ -21,6 +21,11 @@ def transform_to_morele_schema(input_df, column_mapping):
     for morele_col, input_col in column_mapping.items():
         if input_col in input_df.columns:
             output_df[morele_col] = input_df[input_col]
+
+    # Apply manual values
+    for col, value in manual_values.items():
+        if col in output_df.columns:
+            output_df[col] = value
 
     # Fill missing required columns with default values
     output_df["vendorPartNumber"] = output_df["vendorPartNumber"].fillna("MISSING_SKU")
@@ -45,6 +50,7 @@ def main():
         # User input for column mapping
         st.write("### Column Mapping")
         column_mapping = {}
+        manual_values = {}
         morele_columns = [
             "vendorPartNumber", "salePriceBrutto", "currency", "vendorProductName",
             "barcodes", "availability", "quantity", "vendorBrandName",
@@ -55,14 +61,18 @@ def main():
         ]
 
         for col in morele_columns:
-            options = ["None"] + list(input_df.columns)
+            options = ["None"] + list(input_df.columns) + ["Manual Value"]
             selected_option = st.selectbox(f"Select column for '{col}' (or 'None' to skip):", options)
-            if selected_option != "None":
+            if selected_option == "Manual Value":
+                manual_value = st.text_input(f"Enter manual value for '{col}':")
+                if manual_value:
+                    manual_values[col] = manual_value
+            elif selected_option != "None":
                 column_mapping[col] = selected_option
 
         # Transform data to match Morele schema
         if st.button("Transform Data"):
-            transformed_df = transform_to_morele_schema(input_df, column_mapping)
+            transformed_df = transform_to_morele_schema(input_df, column_mapping, manual_values)
 
             st.write("### Transformed Data")
             st.dataframe(transformed_df)
