@@ -64,7 +64,7 @@ def main():
         manual_values = {
             "currency": "PLN",
             "vat": "23",
-            "warranty": "24"
+            "warranty": "12"
         }
 
         # Transform data to match Morele schema
