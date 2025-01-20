@@ -22,6 +22,11 @@ def transform_to_morele_schema(input_df):
         if col in input_df.columns:
             output_df[col] = input_df[col]
 
+    # Copy all remaining columns from the input DataFrame to preserve extra data
+    for col in input_df.columns:
+        if col not in output_df.columns:
+            output_df[col] = input_df[col]
+
     # Fill missing required columns with default values
     output_df["vendorPartNumber"] = output_df["vendorPartNumber"].fillna("MISSING_SKU")
     output_df["currency"] = output_df["currency"].fillna("PLN")
